@@ -1,10 +1,8 @@
 # File created by: Jaime Cesar Zorrilla
 
 # # import libs
-# import pygame as pg
-# import os
-# # Allows for text to appear on screen
-# import pygame.freetype
+import pygame as pg
+import os
 
 # screen dimentions
 WIDTH = 800
@@ -22,8 +20,9 @@ PLAYER_JUMP = 35
 PLAYER_PUSH = 200
 MOB_ACC = 0.5
 MOB_FRICTION = -0.5
- 
-SCORE = 0
+HEALTH = 3
+# SCORE = 0
+# TIME = SCORE/FPS
 # define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)

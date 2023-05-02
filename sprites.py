@@ -7,7 +7,7 @@ from random import randint
 vec = pg.math.Vector2
 
 # player class
-class Player(Sprite):
+class Player(Sprite): 
     def __init__(self, game):
         Sprite.__init__(self)
         # these are the properties of the player class
@@ -20,6 +20,7 @@ class Player(Sprite):
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.cofric = 0.1
+        self.last_update = pg.time.get_ticks()
         self.canjump = False
     # These are the actions taken by the Player Character (PC) when certain inputs are given by the player
     def input(self):
