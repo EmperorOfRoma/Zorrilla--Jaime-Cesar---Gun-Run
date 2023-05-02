@@ -19,11 +19,8 @@ When this reaches 0, game ends and restarts.
 Bullet mob
 A mob that moves across the screen ignoring platforms and damaging the player
 
-Respawn - check
+Respawn
 In the case the player falls off the screen
-
-Clock
-A visible timer that serves as a score
 
 '''
 
