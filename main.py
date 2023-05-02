@@ -19,8 +19,14 @@ When this reaches 0, game ends and restarts.
 Bullet mob
 A mob that moves across the screen ignoring platforms and damaging the player
 
-Respawn
+Respawn - check
 In the case the player falls off the screen
+
+Clock
+Visible timer that will serve as a score
+
+Randsom platforms
+Each game start will pull from a pool of platforms in combinations that are all playable
 
 '''
 
@@ -113,6 +119,8 @@ class Game:
         if self.player.pos.y > HEIGHT:
             self.player.pos.y = HEIGHT/2
             self.player.pos.x = WIDTH/2
+            self.player.health -= 1
+            print(self.player.health)
 
     # makes visuals appear on screen
     def draw(self):
@@ -123,7 +131,7 @@ class Game:
         self.draw_text("so survive as long as you can.", 24, WHITE, WIDTH/2, HEIGHT/2+30)
         self.draw_text("I will try to help.", 24, WHITE, WIDTH/2, HEIGHT/2+60)
         self.all_sprites.draw(self.screen)
-        if HEALTH == 3:
+        if self.player.health == 3:
             pass
 
         pg.display.flip()

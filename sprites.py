@@ -20,6 +20,7 @@ class Player(Sprite):
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.cofric = 0.1
+        self.health = 3
         self.last_update = pg.time.get_ticks()
         self.canjump = False
     # These are the actions taken by the Player Character (PC) when certain inputs are given by the player
