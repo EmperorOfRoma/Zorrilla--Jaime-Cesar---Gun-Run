@@ -108,9 +108,9 @@ class Game:
                     self.player.pos.y = hits[0].rect.top
                     self.player.vel.y = 0
         # Timer to provide a score to the player ****************
-        # while TIME < 600:
-        #     SCORE =+ 1
-        #     print(SCORE)
+        # while self.player.time < 600:
+        #     self.player.score += 1
+        #     print(self.player.score)
         # start_ticks=pg.time.get_ticks()
         # while RUNNING:
         #     seconds=(pg.time.get_ticks()-start_ticks)/1000
