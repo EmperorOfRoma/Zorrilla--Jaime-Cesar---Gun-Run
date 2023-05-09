@@ -31,6 +31,7 @@ Each game start will pull from a pool of platforms in combinations that are all 
 '''
 
 # import libs
+from time import sleep
 import pygame as pg
 import os
 # import settings 
@@ -41,6 +42,9 @@ from sprites import *
 # set up assets folders
 game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, "images")
+# # Turns a visual saved in my folder into a variable to be used in the code
+# heart_image = pg.image.load(os.path.join(img_folder, "pixel-heart.jpg")).convert()
+# heart_image_rect = heart_image.get_rect()
 
 # create game class in order to pass properties to the sprites file
 class Game:
@@ -51,6 +55,19 @@ class Game:
         self.screen = pg.display.set_mode((WIDTH, HEIGHT))
         pg.display.set_caption("my game")
         self.clock = pg.time.Clock()
+        # Turns a visual saved in my folder into a variable to be used in the code
+        global heart_image1
+        global heart_image1_rect
+        global heart_image2
+        global heart_image2_rect
+        global heart_image3
+        global heart_image3_rect
+        heart_image1 = pg.image.load(os.path.join(img_folder, "pixel-heart.png")).convert()
+        heart_image1_rect = heart_image1.get_rect()
+        heart_image2 = pg.image.load(os.path.join(img_folder, "pixel-heart.png")).convert()
+        heart_image2_rect = heart_image1.get_rect()
+        heart_image3 = pg.image.load(os.path.join(img_folder, "pixel-heart.png")).convert()
+        heart_image3_rect = heart_image1.get_rect()
         SCORE = 0
         TIME = SCORE/FPS
         self.running = True
@@ -113,6 +130,7 @@ class Game:
         #     print(self.player.score)
         # start_ticks=pg.time.get_ticks()
         # while RUNNING:
+        #     global seconds
         #     seconds=(pg.time.get_ticks()-start_ticks)/1000
         #     print(seconds)
         # print(pg.time.Clock()) **********************************
@@ -131,10 +149,48 @@ class Game:
         self.draw_text("so survive as long as you can.", 24, WHITE, WIDTH/2, HEIGHT/2+30)
         self.draw_text("I will try to help.", 24, WHITE, WIDTH/2, HEIGHT/2+60)
         self.all_sprites.draw(self.screen)
+        # These provide visual feedback on player's health
         if self.player.health == 3:
-            pass
-
+            heart_image1_rect.y = -5
+            heart_image2_rect.y = -5
+            heart_image3_rect.y = -5
+            heart_image2_rect.x = heart_image1_rect.width
+            heart_image3_rect.x = heart_image1_rect.width*2
+            self.screen.blit(heart_image1, heart_image1_rect)
+            self.screen.blit(heart_image2, heart_image2_rect)
+            self.screen.blit(heart_image3, heart_image3_rect)
+        if self.player.health == 2:
+            heart_image1_rect.y = -5
+            heart_image2_rect.y = -5
+            heart_image2_rect.x = heart_image1_rect.width
+            self.screen.blit(heart_image1, heart_image1_rect)
+            self.screen.blit(heart_image2, heart_image2_rect)
+        if self.player.health == 1:
+            heart_image1_rect.y = -5
+            self.screen.blit(heart_image1, heart_image1_rect)
         pg.display.flip()
+        if self.player.health < 1:
+            # # self.player.vel.x = 0
+            # # self.player.vel = 0
+            # self.player.acc.x = 0
+            # self.player.acc = 0
+            # # self.mob.vel = 0
+            self.screen.fill(BLUE)
+            self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 0)
+            self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 100)
+            self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 200)
+            self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 300)
+            self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 400)
+            self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 500)
+            self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 600)
+            pg.display.flip()
+            sleep(5)
+            # self.screen.fill(BLUE)
+            # self.draw_text("You Survived " + seconds + "seconds.", 100, RED, -10, 0)
+            # pg.display.flip()
+            # sleep(5)
+            pg.quit()
+
     # allows text to appear on screen
     def draw_text(self, text, size, color, x, y):
         font_name = pg.font.match_font('arial')
