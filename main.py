@@ -189,8 +189,8 @@ class Game:
             self.draw_text("You were our only hope,", 24, WHITE, WIDTH/2, HEIGHT/10)
             self.draw_text("then you dissappeared.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
         if self.cd.delta > 139 and self.cd.delta < 150:
-            self.draw_text("Now I've found you in a,", 24, WHITE, WIDTH/2, HEIGHT/10)
-            self.draw_text("??????????????????????????.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+            self.draw_text("Now I've found you in a", 24, WHITE, WIDTH/2, HEIGHT/10)
+            self.draw_text("Triangular dungeon.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
         self.all_sprites.draw(self.screen)
         # These provide visual feedback on player's health
         if self.player.health == 3:
