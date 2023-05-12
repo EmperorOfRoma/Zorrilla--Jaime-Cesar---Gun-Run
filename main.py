@@ -13,7 +13,7 @@
 '''
 My goal is:
 
-Player health
+Player health - Check
 When this reaches 0, game ends and restarts.
 
 Bullet mob
@@ -37,6 +37,7 @@ import os
 # import settings 
 from settings import *
 from sprites import *
+from math import floor
 # from pg.sprite import Sprite
 
 # set up assets folders
@@ -45,6 +46,20 @@ img_folder = os.path.join(game_folder, "images")
 # # Turns a visual saved in my folder into a variable to be used in the code
 # heart_image = pg.image.load(os.path.join(img_folder, "pixel-heart.jpg")).convert()
 # heart_image_rect = heart_image.get_rect()
+
+class Cooldown():
+    def __init__(self):
+        self.current_time = 0
+        self.event_time = 0
+        self.delta = 0
+    def ticking(self):
+        self.current_time = floor((pg.time.get_ticks())/1000)
+        self.delta = self.current_time - self.event_time
+        # print(self.delta)
+    def reset(self):
+        self.event_time = floor((pg.time.get_ticks())/1000)
+    def timer(self):
+        self.current_time = floor((pg.time.get_ticks())/1000)
 
 # create game class in order to pass properties to the sprites file
 class Game:
@@ -79,6 +94,7 @@ class Game:
         self.platforms = pg.sprite.Group()
         # self.enemies = pg.sprite.Group()
         self.player = Player(self)
+        self.cd = Cooldown()
         # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
         # self.all_sprites.add(self.plat1)
         # self.platforms.add(self.plat1)        
@@ -113,6 +129,10 @@ class Game:
     # the system applies these once every 30 secs, updating the game as the concurrent condtions require
     def update(self):
         self.all_sprites.update()
+        # Timer to provide a score to the player
+        # while self.player.health > 0:
+        self.cd.ticking()
+        # print(self.cd.delta)
         if self.player.vel.y > 0:
             hits = pg.sprite.spritecollide(self.player, self.platforms, False)
             if hits:
@@ -124,30 +144,53 @@ class Game:
                 else:
                     self.player.pos.y = hits[0].rect.top
                     self.player.vel.y = 0
-        # Timer to provide a score to the player ****************
-        # while self.player.time < 600:
-        #     self.player.score += 1
-        #     print(self.player.score)
-        # start_ticks=pg.time.get_ticks()
-        # while RUNNING:
-        #     global seconds
-        #     seconds=(pg.time.get_ticks()-start_ticks)/1000
-        #     print(seconds)
-        # print(pg.time.Clock()) **********************************
         if self.player.pos.y > HEIGHT:
             self.player.pos.y = HEIGHT/2
             self.player.pos.x = WIDTH/2
             self.player.health -= 1
-            print(self.player.health)
+            # print(self.player.health)
 
     # makes visuals appear on screen
     def draw(self):
         self.screen.fill(BLUE)
-        self.draw_text("Hello there", 24, WHITE, WIDTH/2, HEIGHT/10)
-        self.draw_text("Blocky.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
-        self.draw_text("I know you're stuck", 24, WHITE, WIDTH/2, HEIGHT/2)
-        self.draw_text("so survive as long as you can.", 24, WHITE, WIDTH/2, HEIGHT/2+30)
-        self.draw_text("I will try to help.", 24, WHITE, WIDTH/2, HEIGHT/2+60)
+        self.draw_text(str(self.cd.delta), 24, WHITE, WIDTH - 50, 0)
+        if self.cd.delta < 20:
+            self.draw_text("Hello there", 24, WHITE, WIDTH/2, HEIGHT/10)
+            self.draw_text("Blocky.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+            self.draw_text("I know you're stuck", 24, WHITE, WIDTH/2, HEIGHT/2)
+            self.draw_text("so survive as long as you can.", 24, WHITE, WIDTH/2, HEIGHT/2+30)
+            self.draw_text("I will try to help.", 24, WHITE, WIDTH/2, HEIGHT/2+60)
+        if self.cd.delta > 19 and self.cd.delta < 25:
+            self.draw_text("Give me 10 minutes.", 24, WHITE, WIDTH/2, HEIGHT/10)
+        if self.cd.delta > 24 and self.cd.delta < 40:
+            self.draw_text("Don't forget:", 24, WHITE, WIDTH/2, HEIGHT/10)
+            self.draw_text("It's hard to change directions", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+            self.draw_text("while moving.", 24, WHITE, WIDTH/2, HEIGHT/10+60)
+            self.draw_text("Stop moving, then turn.", 24, WHITE, WIDTH/2, HEIGHT/2)
+        if self.cd.delta > 59 and self.cd.delta < 70:
+            self.draw_text("You know, you've been off the", 24, WHITE, WIDTH/2, HEIGHT/10)
+            self.draw_text("radar for a while.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+        if self.cd.delta > 69 and self.cd.delta < 75:
+            self.draw_text("You're a hard person to find.", 24, WHITE, WIDTH/2, HEIGHT/10)
+        if self.cd.delta > 74 and self.cd.delta < 80:
+            self.draw_text("Do you remember anything?", 24, WHITE, WIDTH/2, HEIGHT/10)
+        if self.cd.delta > 79 and self.cd.delta < 85:
+            self.draw_text("No?", 24, WHITE, WIDTH/2, HEIGHT/10)
+        if self.cd.delta > 89 and self.cd.delta < 95:
+            self.draw_text("Where to begin...?", 24, WHITE, WIDTH/2, HEIGHT/10)
+        if self.cd.delta > 109 and self.cd.delta < 130:
+            self.draw_text("Sir Cular and his regiments", 24, WHITE, WIDTH/2, HEIGHT/10)
+            self.draw_text("have laid siege to the world.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+            self.draw_text("Sir Cumference is leading his armies.", 24, WHITE, WIDTH/2, HEIGHT/10+60)
+            self.draw_text("We have tried to fight back", 24, WHITE, WIDTH/2, HEIGHT/2)
+            self.draw_text("but our soldiers are square.", 24, WHITE, WIDTH/2, HEIGHT/2+30)
+            self.draw_text("Our Triangular allies are too edgy to help.", 24, WHITE, WIDTH/2, HEIGHT/2+60)
+        if self.cd.delta > 129 and self.cd.delta < 140:
+            self.draw_text("You were our only hope,", 24, WHITE, WIDTH/2, HEIGHT/10)
+            self.draw_text("then you dissappeared.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+        if self.cd.delta > 139 and self.cd.delta < 150:
+            self.draw_text("Now I've found you in a,", 24, WHITE, WIDTH/2, HEIGHT/10)
+            self.draw_text("??????????????????????????.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
         self.all_sprites.draw(self.screen)
         # These provide visual feedback on player's health
         if self.player.health == 3:
@@ -185,10 +228,10 @@ class Game:
             self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 600)
             pg.display.flip()
             sleep(5)
-            # self.screen.fill(BLUE)
-            # self.draw_text("You Survived " + seconds + "seconds.", 100, RED, -10, 0)
-            # pg.display.flip()
-            # sleep(5)
+            self.screen.fill(BLUE)
+            self.draw_text("You Survived " + str(self.cd.delta) + " seconds.", 70, RED, WIDTH/2, HEIGHT/2)
+            pg.display.flip()
+            sleep(5)
             pg.quit()
 
     # allows text to appear on screen
