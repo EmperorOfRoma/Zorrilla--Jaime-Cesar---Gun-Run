@@ -22,7 +22,7 @@ A mob that moves across the screen ignoring platforms and damaging the player
 Respawn - check
 In the case the player falls off the screen
 
-Clock
+Clock - check
 Visible timer that will serve as a score
 
 Randsom platforms
@@ -191,6 +191,30 @@ class Game:
         if self.cd.delta > 139 and self.cd.delta < 150:
             self.draw_text("Now I've found you in a", 24, WHITE, WIDTH/2, HEIGHT/10)
             self.draw_text("Triangular dungeon.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+        if self.cd.delta > 149 and self.cd.delta < 155:
+            self.draw_text("Don't worry, friend.", 24, WHITE, WIDTH/2, HEIGHT/10)
+        if self.cd.delta > 154 and self.cd.delta < 160:
+            self.draw_text("I'll get you out.", 24, WHITE, WIDTH/2, HEIGHT/10)
+        if self.cd.delta > 299 and self.cd.delta < 310:
+            self.draw_text("ETA: 5 mins.", 24, WHITE, WIDTH/2, HEIGHT/10)
+        if self.cd.delta > 539 and self.cd.delta < 550:
+            self.draw_text("One more minute.", 24, WHITE, WIDTH/2, HEIGHT/10)
+            self.draw_text("Just hold on.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+        if self.cd.delta > 579 and self.cd.delta < 590:
+            self.draw_text("HAHA! I made it!.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+        if self.cd.delta > 589 and self.cd.delta < 600:
+            self.draw_text("Hop on!", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+        if self.cd.delta > 599:
+            self.screen.fill(BLUE)
+            self.draw_text("YOU", 100, GREEN, WIDTH/2, HEIGHT/2)
+            pg.display.flip()
+            sleep(2)
+            self.screen.fill(BLUE)
+            self.draw_text("YOU", 150, GREEN, WIDTH/2, HEIGHT/2-80)
+            self.draw_text("SURVIVED", 150, GREEN, WIDTH/2, HEIGHT/2+70)
+            pg.display.flip()
+            sleep(5)
+            pg.quit()
         self.all_sprites.draw(self.screen)
         # These provide visual feedback on player's health
         if self.player.health == 3:
