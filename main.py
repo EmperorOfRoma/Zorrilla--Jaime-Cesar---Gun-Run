@@ -91,22 +91,23 @@ class Game:
         # starting a new game causes the below to reset or spawn in the manner described
         self.score = 0
         self.all_sprites = pg.sprite.Group()
+        self.enemies = pg.sprite.Group()
         self.platforms = pg.sprite.Group()
         # self.enemies = pg.sprite.Group()
         self.player = Player(self)
         self.cd = Cooldown()
         # self.plat1 = Platform(WIDTH, 50, 0, HEIGHT-50, (150,150,150), "normal")
         # self.all_sprites.add(self.plat1)
-        # self.platforms.add(self.plat1)        
+        # self.platforms.add(self.plat1)
         self.all_sprites.add(self.player)
         for plat in PLATFORM_LIST:
             p = Platform(*plat)
             self.all_sprites.add(p)
             self.platforms.add(p)
-        # for i in range(0,10):
-        #     m = Mob(20,20,(0,255,0))
-        #     self.all_sprites.add(m)
-        #     self.enemies.add(m)
+        for i in range(0,10):
+            m = Mob(20,20,RED)
+            self.all_sprites.add(m)
+            self.enemies.add(m)
         self.run()
     # Make the game play
     def run(self):
@@ -133,6 +134,11 @@ class Game:
         # while self.player.health > 0:
         self.cd.ticking()
         # print(self.cd.delta)
+        injure = pg.sprite.spritecollide(self.player, self.enemies, False)
+        if self.cd.delta > 2:
+            if injure:
+                injure[0].kill()
+                self.player.health -= 1
         if self.player.vel.y > 0:
             hits = pg.sprite.spritecollide(self.player, self.platforms, False)
             if hits:
