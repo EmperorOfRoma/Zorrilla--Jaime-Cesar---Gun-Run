@@ -196,7 +196,7 @@ class Game:
             self.draw_text("then you dissappeared.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
         if self.cd.delta > 139 and self.cd.delta < 150:
             self.draw_text("Now I've found you in a", 24, WHITE, WIDTH/2, HEIGHT/10)
-            self.draw_text("Triangular dungeon.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
+            self.draw_text("gun-geon of sorts.", 24, WHITE, WIDTH/2, HEIGHT/10+30)
         if self.cd.delta > 149 and self.cd.delta < 155:
             self.draw_text("Don't worry, friend.", 24, WHITE, WIDTH/2, HEIGHT/10)
         if self.cd.delta > 154 and self.cd.delta < 160:
