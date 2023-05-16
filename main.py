@@ -104,7 +104,7 @@ class Game:
             p = Platform(*plat)
             self.all_sprites.add(p)
             self.platforms.add(p)
-        for i in range(0,10):
+        for i in range(0,8):
             m = Mob(20,20,RED)
             self.all_sprites.add(m)
             self.enemies.add(m)
@@ -131,14 +131,14 @@ class Game:
     def update(self):
         self.all_sprites.update()
         # Timer to provide a score to the player
-        # while self.player.health > 0:
         self.cd.ticking()
-        # print(self.cd.delta)
+        # Enemies injure the player
         injure = pg.sprite.spritecollide(self.player, self.enemies, False)
         if self.cd.delta > 2:
             if injure:
                 injure[0].kill()
                 self.player.health -= 1
+        # Causes platforms to work
         if self.player.vel.y > 0:
             hits = pg.sprite.spritecollide(self.player, self.platforms, False)
             if hits:
@@ -154,7 +154,6 @@ class Game:
             self.player.pos.y = HEIGHT/2
             self.player.pos.x = WIDTH/2
             self.player.health -= 1
-            # print(self.player.health)
 
     # makes visuals appear on screen
     def draw(self):
@@ -243,11 +242,6 @@ class Game:
             self.screen.blit(heart_image1, heart_image1_rect)
         pg.display.flip()
         if self.player.health < 1:
-            # # self.player.vel.x = 0
-            # # self.player.vel = 0
-            # self.player.acc.x = 0
-            # self.player.acc = 0
-            # # self.mob.vel = 0
             self.screen.fill(BLUE)
             self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 0)
             self.draw_text("YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD YOU ARE DEAD", 100, RED, -10, 100)

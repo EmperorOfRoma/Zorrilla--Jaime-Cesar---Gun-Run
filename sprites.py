@@ -94,7 +94,7 @@ class Mob(Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH/2, HEIGHT/2)
         self.pos = vec(WIDTH/2, HEIGHT/2)
-        self.vel = vec(randint(1,10),randint(1,10))
+        self.vel = vec(randint(3,7),randint(3,7))
         self.acc = vec(1,1)
         self.cofric = 0.01
     # keeps mobs on the screen
