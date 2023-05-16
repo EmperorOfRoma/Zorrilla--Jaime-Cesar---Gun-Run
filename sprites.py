@@ -36,13 +36,6 @@ class Player(Sprite):
         #     self.acc.y = PLAYER_ACC
         if keystate[pg.K_d]:
             self.acc.x = PLAYER_ACC
-        # if keystate[pg.K_p]:
-        #     if PAUSED == False:
-        #         PAUSED = True
-        #         print(PAUSED)
-        #     else:
-        #         PAUSED = False
-        #         print(PAUSED)
     # ...
     def jump(self):
         self.rect.x += 1
@@ -51,25 +44,6 @@ class Player(Sprite):
         if hits:
             self.vel.y = -PLAYER_JUMP
     
-    # def inbounds(self):
-    #     if self.rect.x > WIDTH - 50:
-    #         self.pos.x = WIDTH - 25
-    #         self.vel.x = 0
-    #         print("i am off the right side of the screen...")
-    #     if self.rect.x < 0:
-    #         self.pos.x = 25
-    #         self.vel.x = 0
-    #         print("i am off the left side of the screen...")
-    #     if self.rect.y > HEIGHT:
-    #         print("i am off the bottom of the screen")
-    #     if self.rect.y < 0:
-    #         print("i am off the top of the screen...")
-    # def mob_collide(self):
-    #         hits = pg.sprite.spritecollide(self, self.game.enemies, True)
-    #         if hits:
-    #             print("you collided with an enemy...")
-    #             self.game.score += 1
-    #             print(SCORE)
     # the system applies these once every 30 secs, updating the game as the concurrent condtions require
     def update(self):
         self.acc = vec(0, PLAYER_GRAV)

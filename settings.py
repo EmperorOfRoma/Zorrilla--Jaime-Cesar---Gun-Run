@@ -20,8 +20,6 @@ PLAYER_JUMP = 35
 PLAYER_PUSH = 200
 MOB_ACC = 0.5
 MOB_FRICTION = -0.5
-# SCORE = 0
-# TIME = SCORE/FPS
 # define colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
