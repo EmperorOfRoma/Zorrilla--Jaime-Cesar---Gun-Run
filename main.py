@@ -144,6 +144,7 @@ class Game:
                 else:
                     self.player.pos.y = hits[0].rect.top
                     self.player.vel.y = 0
+        # Fall damage & respawn
         if self.player.pos.y > HEIGHT:
             self.player.pos.y = HEIGHT/2
             self.player.pos.x = WIDTH/2
