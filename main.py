@@ -77,8 +77,6 @@ class Game:
         heart_image2_rect = heart_image1.get_rect()
         heart_image3 = pg.image.load(os.path.join(img_folder, "pixel-heart.png")).convert()
         heart_image3_rect = heart_image1.get_rect()
-        SCORE = 0
-        TIME = SCORE/FPS
         self.running = True
         print(self.screen)
     def new(self):
@@ -206,7 +204,7 @@ class Game:
             self.draw_text("Hop on!", 24, WHITE, WIDTH/2, HEIGHT/10+30)
         if self.cd.delta > 599:
             self.screen.fill(BLUE)
-            self.draw_text("YOU", 100, GREEN, WIDTH/2, HEIGHT/2)
+            self.draw_text("YOU", 150, GREEN, WIDTH/2, HEIGHT/2-80)
             pg.display.flip()
             sleep(2)
             self.screen.fill(BLUE)
